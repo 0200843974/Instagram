@@ -1,0 +1,75 @@
+For readability and beauty, this section of code should had this format:
+
+    Header --> t_header("text")
+    Description --> t_description("text") #(Optional)
+    Select --> t_select("text") #if the section has choices
+    print("\n")
+    Message --> t_info("text") | t_error("text") | ... #This part is after the operation, if you have an message for user (Optional)
+    and print("\n") for space between all sections
+
+All the functions mentioned are implemented in the "output.py"
+All the functions mentioned have their own color
+
+
+for exampel:
+
+    Profile page --> t_header("Profile page")
+    0.back --> t_select("0.back")
+    1.Edit Profile --> t_select("1.Edit Profile")
+    2.View posts --> t_select("2.View posts")
+    3.Setting --> t_select("3.Setting")
+
+    and next section...
+
+
+Or this exampel:
+
+    Please enter your username: --> t_header("Please enter your username:")
+    if you want back enter 0 --> t_description("Enter 0 for back")
+    #User enter its username
+
+    The operation was successful --> m_success("The operation was successful")
+
+    and next section...
+
+
+
+All users can exit the program at any time by entering "exit" and also with "0" they can return to the previous page.
+
+for exampel:
+    while(True)
+        command == input()
+        if input == "exit":
+            quit()
+        elif input == "0":
+            break | return Pre_page()   #Instead of "Pre_page()", the functions "Home()" or "Profile()" or etc are used
+
+
+
+Use this format for debugging:
+    
+    try:
+        if(condition):
+            #code
+        else:
+        raise Except("text of error")
+    except Except as e:
+        m_error(e)
+
+
+
+To store data in JSON, you must first make your changes in dictionaries "Users" and "Posts", then use this code:
+
+    #for users
+    with open("database/users.json","w") as json_file:
+        json.dump(Users, json_file, indent=3)
+
+    #for posts
+    with open("database/posts.json","w") as json_file:
+        json.dump(Posts, json_file, indent=3)
+
+
+
+It is recommended that you make a backup of your code on your local system
+
+good luck...
