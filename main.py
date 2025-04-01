@@ -2,6 +2,7 @@ import json
 import re
 import time
 from output import *
+import posts
 
 
 
@@ -44,6 +45,7 @@ def Home(username):
             elif command == "2":
                 #codes here
                 m_info("Posts")
+                posts.post(username)
             elif command == "3":
                 #codes here
                 m_info("Chat")
