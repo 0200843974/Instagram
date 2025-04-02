@@ -42,6 +42,7 @@ def Home(username):
             elif command == "1":
                 #codes here
                 m_info("Stories")
+                
             elif command == "2":
                 #codes here
                 m_info("Posts")
