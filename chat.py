@@ -112,3 +112,8 @@ def chat(username,message):
                 input("press anything to continue")
                 clear_console()
                 
+        with open("chats.json", "w", encoding="utf-8") as file:
+           json.dump(chats, file, indent=4, ensure_ascii=False)
+        with open("users.json", "w", encoding="utf-8") as file:
+            json.dump(users, file, indent=4, ensure_ascii=False)
+        clear_console()   

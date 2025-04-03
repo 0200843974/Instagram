@@ -12,7 +12,8 @@
         "posts":["1"],
         "saves":[],
         "type":"public",
-        "blocked":["test2"]
+        "blocked":["test2"],
+        "request" : []
     },
     "test1":{
         "name": "test1",
@@ -27,7 +28,8 @@
         "posts":[],
         "saves":["1"],
         "type":"public",
-        "blocked":[]
+        "blocked":[] ,
+        "request" : []
     },
     "test2":{
         "name": "test3",
@@ -42,7 +44,8 @@
         "posts":[],
         "saves":[],
         "type":"private",
-        "blocked":[]
+        "blocked":[],
+        "request" : []
     },
     "test3":{
         "name": "test3",
@@ -57,6 +60,7 @@
         "posts":[],
         "saves":[],
         "type":"private",
-        "blocked":["iust.instagram","test1","test2","test3"]
+        "blocked":["iust.instagram","test1","test2","test3"],
+        "request" : []
     }
 }

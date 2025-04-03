@@ -3,7 +3,10 @@ import re
 import time
 from output import *
 import posts
-
+import stories
+import chat
+import create
+import request
 
 
 #This section reads information from the "users.json" and stores it in var "Users"
@@ -39,29 +42,40 @@ def Home(username):
 
             if command == "exit":
                 quit()
+                
             elif command == "1":
                 #codes here
                 m_info("Stories")
-                
+                stories.stories(username)
+            
             elif command == "2":
                 #codes here
                 m_info("Posts")
                 posts.post(username)
+            
             elif command == "3":
                 #codes here
                 m_info("Chat")
+                chat.chat(username)
+                
             elif command == "4":
                 #dont touch
                 return Search(username)
+            
             elif command == "5":
                 #codes here
                 m_info("Add content")
+                create.create(username)
+                
             elif command == "6":
                 #codes here
                 m_info("Request")
+                request.request(username)
+                
             elif command == "7":
                 #dont touch
                 return Profile(username,username)
+            
             else:
                 raise Exception("The input is invalid try again")
             space()

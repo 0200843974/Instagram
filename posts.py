@@ -110,6 +110,7 @@ def post(username) :
                 t_select("just type the corresponding number down:")
                 num = input()
                 try:
+                    num = int(num)
                     sent = users[username]["folloing"][num-1]
                     chat.chat(username,f"{post["author"]}:{post["caption"]}")
                     posts[key]["share"] += 1
