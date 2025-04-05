@@ -2,7 +2,7 @@
     "iust.instagram":{
         "name": "Fatemeh elahi",
         "email":"iust@gmail.com",
-        "password":"iust1234",
+        "password":"Iust1234",
         "bio":"im a teacher",
         "followers_count": 1,
         "following_count": 1,
@@ -17,7 +17,7 @@
     "test1":{
         "name": "test1",
         "email":"test1@gmail.com",
-        "password":"test1111",
+        "password":"Test1111",
         "bio":"Sigma Sigma Boy",
         "followers_count": 1,
         "following_count": 2,
@@ -30,9 +30,9 @@
         "blocked":[]
     },
     "test2":{
-        "name": "test3",
+        "name": "test2",
         "email":"test2@gmail.com",
-        "password":"test2222",
+        "password":"Test2222",
         "bio":"why??",
         "followers_count": 1,
         "following_count": 0,
@@ -47,7 +47,7 @@
     "test3":{
         "name": "test3",
         "email":"test3@gmail.com",
-        "password":"test3333",
+        "password":"Test3333",
         "bio":"peace",
         "followers_count": 0,
         "following_count": 0,
