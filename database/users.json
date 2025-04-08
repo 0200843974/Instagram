@@ -7,12 +7,13 @@
         "followers_count": 1,
         "following_count": 1,
         "posts_count": 1,
-        "followers": ["test1"],
-        "following": ["test1"],
-        "posts": ["1"],
-        "saves": ["1"],
-        "type": "public",
-        "blocked": ["test2", "test3"]
+        "followers":["test1"],
+        "folloing":["test1"],
+        "posts":["1"],
+        "saves":[],
+        "type":"public",
+        "blocked":["test2"],
+        "request" : []
     },
     "test1": {
         "name": "test1",
@@ -22,12 +23,13 @@
         "followers_count": 1,
         "following_count": 1,
         "posts_count": 0,
-        "followers": ["iust.instagram"],
-        "following": ["iust.instagram"],
-        "posts": [],
-        "saves": ["1"],
-        "type": "public",
-        "blocked": []
+        "followers":["iust.instagram"],
+        "folloing":["iust.instagram","test2"],
+        "posts":[],
+        "saves":["1"],
+        "type":"public",
+        "blocked":[] ,
+        "request" : []
     },
     "test2":{
         "name": "test2",
@@ -37,12 +39,13 @@
         "followers_count": 1,
         "following_count": 1,
         "posts_count": 0,
-        "followers": ["test1"],
-        "following": ["test1"],
-        "posts": [],
-        "saves": [],
-        "type": "private",
-        "blocked": []
+        "followers":["test1"],
+        "folloing":[],
+        "posts":[],
+        "saves":[],
+        "type":"private",
+        "blocked":[],
+        "request" : []
     },
     "test3": {
         "name": "test3",
@@ -52,11 +55,12 @@
         "followers_count": 0,
         "following_count": 0,
         "posts_count": 0,
-        "followers": [],
-        "following": [],
-        "posts": [],
-        "saves": [],
-        "type": "private",
-        "blocked": ["iust.instagram", "test1", "test2"]
+        "followers":[],
+        "folloing":[],
+        "posts":[],
+        "saves":[],
+        "type":"private",
+        "blocked":["iust.instagram","test1","test2","test3"],
+        "request" : []
     }
 }

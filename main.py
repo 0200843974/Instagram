@@ -234,20 +234,224 @@ def home(username):
 
             if command == "exit":
                 quit()
+
+            elif command == "1":
+                #SignIn enter username
+                while(True):
+                    try:
+                        t_header("Enter your username...")
+                        t_description("If you want quit enter 'exit' and if you want back enter 0")
+                        command = input()
+                        space()
+
+                        if command == "exit":
+                            quit()
+
+                        elif command == "0":
+                            break
+
+                        elif command in Users.keys():
+                            username = command
+                            #SignIn enter password
+                            while(True):
+
+                                try:
+                                    t_header("Enter your password...")
+                                    t_description("If you want quit enter 'exit' and if you want back enter 0")
+                                    command = input()
+                                    space()
+
+                                    if command == "exit":
+                                        quit()
+
+                                    elif command == "0":
+                                        break
+
+                                    elif command == Users[username]["password"]:
+                                        #Successful login
+                                        m_success(f"Wellcome {Users[username]['name']}")
+                                        space()
+                                        return home(username)
+                                    
+                                    else:
+                                        raise Exception("Password is incorrect!")
+                                    
+                                except Exception as e:
+                                    m_error(e)
+                                    space()
+                                    continue
+                        else:
+                            raise Exception("Username does not exist!")
+                        
+                        space()
+
+                    except Exception as e:
+                        m_error(e)
+                        space()
+                        continue
+
+            elif command == "2":
+                #SignUp enter Username
+                while(True):
+                    try:
+                        t_header("Enter a username...")
+                        t_description("The username must only contain uppercase and lowercase English letters, numbers, and underline '_'")
+                        t_description("If you want quit enter 'exit' and if you want back enter 0")
+                        command = input()
+                        space()
+
+                        if command == "exit":
+                            quit()
+
+                        elif command == "0":
+                            break
+                        
+                        elif re.match(userPat, command):
+                            if command not in Users.keys():
+                                #Sign In enter email address
+                                username = command
+                                try:
+                                    while(True):
+                                        t_header("Enter an email address...")
+                                        t_description("If you want quit enter 'exit' and if you want back enter 0")
+                                        command = input()
+                                        space()
+
+                                        if command == "exit":
+                                            quit()
+
+                                        elif command == "0":
+                                            break
+                                        
+                                        elif re.match(emailPat, command):
+                                            if command not in Users[command]["email"]:
+                                                #SignUp enter password
+                                                email = command
+                                                try:
+                                                    while(True):
+                                                        t_header("Enter an password...")
+                                                        t_description("The password must contain at least 8 characters, including uppercase and lowercase English letters and numbers")
+                                                        t_description("If you want quit enter 'exit' and if you want back enter 0")
+                                                        command = input()
+                                                        space()
+
+                                                        if command == "exit":
+                                                            quit()
+
+                                                        elif command == "0":
+                                                            break
+                                                        
+                                                        elif re.match(passPat, command):
+                                                            #Successful registration
+                                                            password = command
+                                                            Users[username] = {
+                                                                                "name": username,
+                                                                                "email": email,
+                                                                                "password": password,
+                                                                                "bio": "",
+                                                                                "followers_count": 0,
+                                                                                "following_count": 0,
+                                                                                "posts_count": 0,
+                                                                                "followers": [],
+                                                                                "folloing": [],
+                                                                                "posts": [],
+                                                                                "saves": [],
+                                                                                "type": "public",
+                                                                                "blocked": []
+                                                                              }
+                                                            #Add user to database users
+                                                            with open("database/users.json","w") as json_file:
+                                                                json.dump(Users, json_file, indent=3)
+
+                                                            m_success(f"Wellcome {username}")
+                                                            space()
+                                                            return home(username)
+                                                        
+                                                        else:
+                                                            raise Exception("Password syntax is invalid!")
+                                                        space()
+
+                                                except Exception as e:
+                                                    m_error(e)
+                                                    space()
+                                                    continue
+                                                
+                                            else:
+                                                raise Exception("Email address must be unique!")
+
+                                        else:
+                                            raise Exception("Email address syntax is invalid!")
+                                        space()
+
+                                except Exception as e:
+                                    m_error(e)
+                                    space()
+                                    continue
+
+                            else:
+                                raise Exception("Username must be unique!")
+                            
+                        else:
+                            raise Exception("username syntax is invalid!")
+                        space()
+
+                    except Exception as e:
+                        m_error(e)
+                        space()
+                        continue
+
+            else:
+                raise Exception("The input is invalid try again!")
+
+        except Exception as e:
+            m_error(e)
+            space()
+            continue
+        
+    #return Home("iust.instagram")
+
+
+#SHOKRI
+def home(username):
+    """#Use "Users[username]" to access a specific user's information"""
+    while True:
+        try:
+            t_header("Home page")
+            t_select("Stories", "Posts" , "Chat" , "Search" , "Add content" , "Request" , "Profile" , "Sign out", s=1)
+            command = user_input()
+            space()
+
+            if command == "exit":
+                quit()
+                
             elif command == "1":
                 m_info("Stories")
+                stories.stories(username)
+            
             elif command == "2":
                 m_info("Posts")
+                posts.post(username)
+            
             elif command == "3":
                 m_info("Chat")
+                chat.chat(username)
+                
             elif command == "4":
                 return search(username)
+                #dont touch
+                return Search(username)
+            
             elif command == "5":
                 m_info("Add content")
+                create.create(username)
+                
             elif command == "6":
                 m_info("Request")
+                request.request(username)
+                
             elif command == "7":
                 return profile(username,username)
+            
             elif command == "8":
                 return sign()
             else:
