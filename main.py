@@ -3,15 +3,16 @@ IMPORTANT To every One Who is reading this
 please dont forget to use a m_success or m_error when user does something!
 and the imports below are the libaries we are going to use in our code
 """
+import os
 import json
 import re
 import time
 from output import space , user_input
 from output import t_header , t_description , t_select
 from output import m_error , m_success , m_info , m_post
-import os
 
 def clear_console() :
+    '''This function clears the console'''
     os.system('cls')
 
 #This section reads information from the "users.json" and stores it in var "users"
@@ -24,33 +25,40 @@ with open("database/posts.json","r" , encoding='utf-8') as jsonFile:
 
 with open("database/chats.json", "r", encoding="utf-8") as jsonFile:
     chats = json.load(jsonFile)
-    
+
 with open("database/stories.json", "r", encoding="utf-8") as jsonFile:
     stories = json.load(jsonFile)
-    
+
 def data_saver():
     """
     VERY IMPORTANT This function is for saving data call it after every time that data changes
     """
     with open("database/users.json", "w" , encoding='utf-8') as jsonfile:
         json.dump(users, jsonfile, indent=4)
+
     with open("database/posts.json", "w" , encoding='utf-8') as jsonfile:
         json.dump(posts, jsonfile, indent=4)
 
+    with open("database/stories.json", "w", encoding="utf-8") as file:
+        json.dump(stories, file, indent=4, ensure_ascii=False)
+
+    with open("database/users.json", "w", encoding="utf-8") as file:
+        json.dump(users, file, indent=4, ensure_ascii=False)
+
 #regex var
-userPat = "^[a-zA-Z0-9_.]{3,20}$"
-emailPat = "^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$"
-passPat = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+USER_PAT = r"^[a-zA-Z0-9_.]{3,20}$"
+EMAIL_PAT = r"^([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+$"
+PASS_PAT = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
 
 #SHAYAN
 def sign():
-    
-    while(True):
+    '''This is the function for sign page'''
+    while True:
         try:
             t_header("Instagram")
             t_description("If you want quit enter 'exit'")
             t_select("Sign in","Sign up" , s=1)
-            command = input()
+            command = user_input()
             space()
 
             if command == "exit":
@@ -58,7 +66,7 @@ def sign():
 
             elif command == "1":
                 #SignIn enter username
-                while(True):
+                while True:
                     try:
                         t_header("Enter your username...")
                         t_description("If you want quit enter 'exit' and if you want back enter 0")
@@ -74,7 +82,7 @@ def sign():
                         elif command in users.keys():
                             username = command
                             #SignIn enter password
-                            while(True):
+                            while True:
 
                                 try:
                                     t_header("Enter your password...")
@@ -93,21 +101,21 @@ def sign():
                                         m_success(f"Wellcome {users[username]['name']}")
                                         space()
                                         return home(username)
-                                    
+
                                     else:
-                                        raise Exception("Password is incorrect!")
-                                    
-                                except Exception as e:
-                                    m_error(e)
+                                        raise ValueError()
+
+                                except ValueError:
+                                    m_error("Password is incorrect!")
                                     space()
                                     continue
                         else:
-                            raise Exception("Username does not exist!")
-                        
+                            raise ValueError()
+
                         space()
 
-                    except Exception as e:
-                        m_error(e)
+                    except ValueError:
+                        m_error("Username does not exist!")
                         space()
                         continue
 
@@ -127,7 +135,7 @@ def sign():
                         elif command == "0":
                             break
                         
-                        elif re.match(userPat, command):
+                        elif re.match(USER_PAT, command):
                             if command not in users.keys():
                                 #Sign In enter email address
                                 username = command
@@ -144,7 +152,7 @@ def sign():
                                         elif command == "0":
                                             break
                                         
-                                        elif re.match(emailPat, command):
+                                        elif re.match(EMAIL_PAT, command):
                                             if command not in users[command]["email"]:
                                                 #SignUp enter password
                                                 email = command
@@ -162,7 +170,7 @@ def sign():
                                                         elif command == "0":
                                                             break
                                                         
-                                                        elif re.match(passPat, command):
+                                                        elif re.match(PASS_PAT, command):
                                                             #Successful registration
                                                             password = command
                                                             users[username] = {
@@ -181,51 +189,50 @@ def sign():
                                                                                 "blocked": []
                                                                               }
                                                             #Add user to database users
-                                                            with open("database/users.json","w") as json_file:
-                                                                json.dump(users, json_file, indent=3)
+                                                            data_saver()
 
                                                             m_success(f"Wellcome {username}")
                                                             space()
                                                             return home(username)
                                                         
                                                         else:
-                                                            raise Exception("Password syntax is invalid!")
+                                                            raise ValueError("Password syntax is invalid!")
                                                         space()
 
-                                                except Exception as e:
-                                                    m_error(e)
+                                                except ValueError:
+                                                    m_error("Password syntax is invalid!")
                                                     space()
                                                     continue
                                                 
                                             else:
-                                                raise Exception("Email address must be unique!")
+                                                raise ValueError()
 
                                         else:
-                                            raise Exception("Email address syntax is invalid!")
+                                            raise ValueError()
                                         space()
 
-                                except Exception as e:
-                                    m_error(e)
+                                except ValueError:
+                                    m_error("The Email alreay exists or the syntax is invalid!")
                                     space()
                                     continue
 
                             else:
-                                raise Exception("Username must be unique!")
+                                raise ValueError("Username must be unique!")
                             
                         else:
-                            raise Exception("username syntax is invalid!")
+                            raise ValueError("username syntax is invalid!")
                         space()
 
-                    except Exception as e:
-                        m_error(e)
+                    except ValueError:
+                        m_error("The Username alreay exists or the syntax is invalid!")
                         space()
                         continue
 
             else:
-                raise Exception("The input is invalid try again!")
+                raise ValueError("The input is invalid try again!")
 
-        except Exception as e:
-            m_error(e)
+        except ValueError:
+            m_error("The input is invalid try again!")
             space()
             continue
         
@@ -240,13 +247,7 @@ def home(username):
         try:
             t_header("Home page")
             t_description("if you want quit enter 'exit'")
-            t_select("1.Stories")
-            t_select("2.posts")
-            t_select("3.Chat")
-            t_select("4.Search") #dont touch
-            t_select("5.Add content")
-            t_select("6.Request")
-            t_select("7.Profile") #dont touch
+            t_select("Stories" , "Posts" , "Chat" , "Search" , "Add content" , "Request" , "Profile", s=1)
             command = user_input()
             space()
 
@@ -278,17 +279,15 @@ def home(username):
                                 m_info("------------------------------------------")
                                 m_info(f"\nlike : {k["like"][0]} ")
                                 space()
-                                t_select("press 1 to like ")
-                                t_select("press 2 to see the next story")
-                                t_select("press 3 to go exit to menu")
+                                t_select("Like " , "Next Story" , "press 3 to go exit to menu" , s=1)
                                 press = user_input()
                             
                 #liking 
-                                if press == 1 :
+                                if press == "1" :
                                     
                                     if username not in  k["like"][1] :
                                         
-                                        k["like"][0]+=1
+                                        k["like"][0] += 1
                                         k["like"][1].append(username)
                                         m_success("you liked this story ")
                                         input("press anything to continue")
@@ -296,8 +295,7 @@ def home(username):
                                     else :
                                         
                                         t_description("you have already liked this story")
-                                        t_select("press 1 to take the like back") 
-                                        t_select("press anything to continue")
+                                        t_select("press 1 to take the like back" , "press anything to continue" , s=1)
                                         decision = user_input()
                                         
                                         if decision == "1" :
@@ -307,9 +305,9 @@ def home(username):
                     
                 #going to next story                     
                                 elif press == 2 :
-                                        cont += 1
-                                        clear_console()
-                                        break
+                                    cont += 1
+                                    clear_console()
+                                    break
                                     
                                 elif press == 3 :
                                     clear_console()
@@ -317,22 +315,17 @@ def home(username):
                                 
                                             #getting out of the story section     
                                 elif press == 4 :
-                                    
-                                    with open("stories.json", "w", encoding="utf-8") as file:
-                                        json.dump(stories, file, indent=4, ensure_ascii=False)
-                                    with open("users.json", "w", encoding="utf-8") as file:
-                                        json.dump(users, file, indent=4, ensure_ascii=False)
+                                    data_saver()
                                     clear_console()
                                     break
                                 
                                 else :
-                                    raise Exception("The input is invalid try again")
+                                    raise ValueError()
                 
                 #removing the story if one day has passed           
                             else:
-                                del stories[l]  
+                                del stories[l]
 
-                        
                     if cont != 0 :
                         m_success("you have seen all the stories press anything  to continue" )
                         user_input()
@@ -375,12 +368,7 @@ def home(username):
                                 
                 #navigating through menu    
                             m_info("====================================\n")
-                            t_select("press 1 to comment")
-                            t_select("press 2 to like")
-                            t_select("press 3 to save")
-                            t_select("press 4 to share")
-                            t_select("press 5 to see the next post ")
-                            t_select("choice:")
+                            t_select("Comment" , "Like" , "Save" , "Share" , "Next Post" , s=1)
                             press = user_input()
                             
                 #commenting            
@@ -407,8 +395,7 @@ def home(username):
                                 else :
                                     
                                     t_description("you have already liked this post")
-                                    t_select("press 1 to take the like exit ")
-                                    t_select("press anything to continue")
+                                    t_select("Takeback the like" , "press anything to continue" , s=1)
                                     decision = user_input()
                                     if decision == "1" :
                                         posts[key]["like"][0]-=1
@@ -430,9 +417,9 @@ def home(username):
                                 else :
                                     
                                     t_description("this post is already saved")
-                                    t_select("press 1 to remove from saves")
-                                    t_select("press anything to continue:")
-                                    decision = input()
+                                    t_select("Remove from saves" , "press anything to continue:" , s=1)
+
+                                    decision = user_input()
                                     
                                     if decision == 1 :
                                         users[username]["saves"].remove(key)
@@ -457,7 +444,7 @@ def home(username):
                                     chat(sent,f"{post["author"]}:{post["caption"]}")
                                     posts[key]["share"] += 1
                                     
-                                except:
+                                except ValueError:
                                     m_error("invalid input press anything to go exit ")
                                     user_input()
                                     
@@ -465,23 +452,19 @@ def home(username):
 
                 #going to the next post
                             elif press ==  "5" :
-                                    counter += 1
-                                    clear_console()
-                                    break
+                                counter += 1
+                                clear_console()
+                                break
                             
                 #getting out of the post section
                             elif press == "exit" :
                                 break
                                 
                             else:
-                                raise Exception("The input is invalid try again")
+                                raise ValueError("The input is invalid try again")
                     
                             if press == 6 :
-                                
-                                with open("posts.json", "w", encoding="utf-8") as file:
-                                    json.dump(posts, file, indent=4, ensure_ascii=False)
-                                with open("users.json", "w", encoding="utf-8") as file:
-                                    json.dump(users, file, indent=4, ensure_ascii=False)
+                                data_saver()
                                 clear_console()
                                 break
                     
@@ -524,9 +507,7 @@ def home(username):
                                 counter += 1
                                 users_chats.append(chat)
                                     
-                        t_select("which chat? enter the number") 
-                        t_select("to create a group write \"create\"")
-                        t_select("to start a convo with a new follower press 0")
+                        t_select("which chat? enter the number" , "to create a group write \"create\"" , "to start a convo with a new follower press 0" , s=1) 
                         choice = user_input()
                         
                 #leading exit to menu
@@ -584,15 +565,15 @@ def home(username):
                                     m_info(f"{messag[0]}:{messag[1]}")
                                     
                 #managing invalid inputs        
-                            except:
+                            except ValueError:
                                 m_error("wrong input")
                                 input("press anything to try again")
                                 clear_console()
                                 continue
                             
-                # checking if the func has a message beforehand 
+                # checking if the func has a message beforehand
                             if message != "":
-                                t_select("press 1 to send press anything to go exit")
+                                t_select("Send" , s=1)
                                 decision = input()
                                 if decision == 1 :
                                     i = 1
@@ -604,7 +585,7 @@ def home(username):
                                     input("press anything to continue")
                                     clear_console()
                                 break
-                            
+
                 #texting
                             else:
                                 t_description("type what you want to send\
@@ -620,10 +601,7 @@ def home(username):
                                 clear_console()
                                 
                 #updating the database                 
-                        with open("chats.json", "w", encoding="utf-8") as file:
-                            json.dump(chats, file, indent=4, ensure_ascii=False)
-                        with open("users.json", "w", encoding="utf-8") as file:
-                            json.dump(users, file, indent=4, ensure_ascii=False)
+                            data_saver()
                         clear_console()
                 chat(username)
                 
@@ -636,10 +614,8 @@ def home(username):
                 m_info("Add content")
                 #description   
                 t_header("creation")
-                t_select("press 1 to add a story")
-                t_select("press 2 to add a post")
-                t_select("press anything else to go exit  to menu")
-                choice = input()
+                t_select("Add Story" , "Add posts" , "press anything else to go exit  to menu" , s=1)
+                choice = user_input()
                 
             #adding stories
                 if choice == "1" :
@@ -666,7 +642,7 @@ def home(username):
                     month = user_input()
                     t_description("what day is it ?")
                     day = user_input()
-                    t_select(" press 1 to submit press anything to cancel")
+                    t_select(" press 1 to submit press anything to cancel" , s=1)
                     check = user_input ()
                     
                     if check == "1" :
@@ -688,12 +664,7 @@ def home(username):
                         m_success("added successfully")
             
             #updating database  
-                with open("posts.json", "w", encoding="utf-8") as file:
-                    json.dump(posts, file, indent=4, ensure_ascii=False)
-                with open("users.json", "w", encoding="utf-8") as file:
-                    json.dump(users, file, indent=4, ensure_ascii=False)
-                with open("stories.json", "w", encoding="utf-8") as file:
-                    json.dump(stories, file, indent=4, ensure_ascii=False)
+                    data_saver()
                 clear_console()
                 
             elif command == "6":
@@ -720,7 +691,7 @@ def home(username):
                         else :
                             try :
                                 req = users[username]["request"][int(choice)-1] 
-                            except:
+                            except ValueError:
                                 m_error("invalid input, press anythig to continue")
                                 input()
                                 continue
@@ -748,7 +719,7 @@ def home(username):
                             
             #invalid input        
                             else:
-                                raise Exception("The input is invalid try again")
+                                raise ValueError("The input is invalid try again")
                             
                             space()
                             break
@@ -759,8 +730,7 @@ def home(username):
                         break
                 
             #updating database
-                with open("users.json", "w", encoding="utf-8") as file:
-                    json.dump(users, file, indent=4, ensure_ascii=False)
+                data_saver()
                 clear_console() 
                 
             elif command == "7":
@@ -768,11 +738,11 @@ def home(username):
                 return profile(username,username)
             
             else:
-                raise Exception("The input is invalid try again")
+                raise ValueError("The input is invalid try again")
             space()
 
-        except Exception as e:
-            m_error(e)
+        except ValueError:
+            m_error("SomeThing went wrong!")
             space()
             continue
 
