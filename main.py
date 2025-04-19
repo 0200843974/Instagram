@@ -186,7 +186,8 @@ def sign():
                                                                                 "posts": [],
                                                                                 "saves": [],
                                                                                 "type": "public",
-                                                                                "blocked": []
+                                                                                "blocked": [],
+                                                                                "request": []
                                                                               }
                                                             #Add user to database users
                                                             data_saver()
@@ -247,7 +248,7 @@ def home(username):
         try:
             t_header("Home page")
             t_description("if you want quit enter 'exit'")
-            t_select("Stories" , "Posts" , "Chat" , "Search" , "Add content" , "Request" , "Profile", s=1)
+            t_select("Stories" , "Posts" , "Chat" , "Search" , "Add content" , "Request" , "Profile", "Sign out", s=1)
             command = user_input()
             space()
 
@@ -269,7 +270,7 @@ def home(username):
                         if users[k["author"]]["type"] == "public" or \
                             (users[k["author"]] in users[username]["followers"] and \
                             username in users[k["author"]]["followers"]) or \
-                            f"#{users[k["author"][1:len(k["author"])-1]]["type"]} " in k["caption"] :
+                            f"#{users[k['author'][1:len(k['author'])-1]]['type']} " in k["caption"] :
 
                 #checking if the story still exixts
                             tim = time.time()
@@ -277,7 +278,7 @@ def home(username):
                                 
                                 m_info(k["caption"])
                                 m_info("------------------------------------------")
-                                m_info(f"\nlike : {k["like"][0]} ")
+                                m_info(f"\nlike : {k['like'][0]} ")
                                 space()
                                 t_select("Like " , "Next Story" , "press 3 to go exit to menu" , s=1)
                                 press = user_input()
@@ -345,7 +346,7 @@ def home(username):
                             username in users[posts[key]["author"]]["followers"] ) or \
                             (users[posts[key]["author"]] in users[username]["followers"] and \
                             username in users[posts[key]["author"]]["followers"]) or \
-                            f"#{users[posts[key]["author"]]}" in posts[key]["caption"] :
+                            f"#{users[posts[key]['author']]}" in posts[key]["caption"] :
                             
                 #showing the post           
                             flag1 = True
@@ -421,7 +422,7 @@ def home(username):
                             elif press == "4" :
                                 
                                 for k in users[username]["following"]:
-                                    print(f"{users[username]["following"].index(k)+1}.{k}")
+                                    print(f"{users[username]['following'].index(k)+1}.{k}")
                                     
                                 t_description("to whom would you like to send this post?")
                                 t_select("just type the corresponding number down:")
@@ -429,7 +430,7 @@ def home(username):
                                 try:
                                     num = int(num)
                                     sent = users[username]["following"][num-1]
-                                    chat(sent,f"{post["author"]}:{post["caption"]}")
+                                    chat(sent,f"{post['author']}:{post['caption']}")
                                     posts[key]["share"] += 1
                                     
                                 except Exception:
@@ -490,7 +491,7 @@ def home(username):
                                             m_info(f"{counter} . {k}")
                                             
                                 else :
-                                    m_info(f"{counter} : {chat["name"]}")
+                                    m_info(f"{counter} : {chat['name']}")
                                     
                                 counter += 1
                                 users_chats.append(chat)
@@ -724,6 +725,10 @@ def home(username):
             elif command == "7":
                 #dont touch
                 return profile(username,username)
+            
+            elif command == "8":
+                #dont touch
+                return sign()
             
             else:
                 raise Exception("The input is invalid try again")
