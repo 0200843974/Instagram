@@ -6,28 +6,27 @@ from rich.table import Table
 from rich.console import Console , Group
 from rich.prompt import Prompt
 #dont worry about these imports :)
+
 def space():
-    '''#prints a line to seprate the section'''
+    '''Prints a line to seprate the section'''
     rule = Rule(style="bold cyan", align="center")
     rprint(rule)
 
 def user_input():
-    '''#use this to get input from the users it makes it more cute'''
-    user_command = Prompt.ask("[bold blue]>>> [/bold blue]" )
+    '''Use this to get input from the users it makes it more cute'''
+    user_command = Prompt.ask("[bold blue]>>> " )
     return user_command
 
 def t_header(text):
-    '''#use this for headers'''
+    '''Use this for headers'''
     header = Rule(f"{text}", style="bold yellow")
     rprint(header)
 
-def t_description(text=" ", maintitle=None):
-    '''#this is for the description but i advise to run the program once
+def t_description(text=" "):
+    '''This is for the description but i advise to run the program once
     to see how it looks and dont just use it everywhere'''
     description = Panel(
         text,
-        title=maintitle,
-        subtitle=None,
         style="dim white",
         border_style="cyan",
     )
@@ -36,7 +35,7 @@ def t_description(text=" ", maintitle=None):
 def t_select(*rows , s=0):
     '''#use the main code as example and give the options to the user like this'''
     table = Table(title="Choose an Option Or If You Want to Quit Enter 'exit'")
-    table.add_column("Option", justify="center", style="bold yellow", no_wrap=True)
+    table.add_column("Option", justify="center",style="bold yellow")
     table.add_column("Description", justify="left", style="cyan")
 
     for index, row in enumerate(rows, start=s):
@@ -45,15 +44,15 @@ def t_select(*rows , s=0):
 
 def m_error(message):
     '''# prints an error message'''
-    rprint(f"[bold red]✗ Error:[/bold red] {message} ,Please try again.")
+    rprint(f"[bold red]✗ Error: {message} ,Please try again.")
 
 def m_success(message):
     '''#prints a success message'''
-    rprint(f"[bold green]✓ Success:[/bold green] {message}")
+    rprint(f"[bold green]✓ Success: {message}")
 
 def m_info(message):
     '''#This is pretty much useless we use it for showing whic page is the user on'''
-    rprint(f"[bold blue]ℹ Info:[/bold blue] {message}")
+    rprint(f"[bold blue]ℹ Info {message}")
 
 def m_post(mydict):
     '''#we use this to show a post to the user'''
