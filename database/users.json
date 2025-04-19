@@ -1,57 +1,89 @@
 {
     "iust.instagram": {
         "name": "Fatemeh elahi",
-        "email":"iust@gmail.com",
-        "password":"Iust1234",
-        "bio":"im a teacher",
-        "followers_count": 1,
-        "following_count": 1,
-        "posts_count": 1,
-        "followers": ["test1"],
-        "following": ["test1"],
-        "posts": ["1"],
-        "saves": ["1"],
-        "type": "public",
-        "blocked": ["test2", "test3"],
-        "request" : []
+        "email": "iust@gmail.com",
+        "password": "Iust1234",
+        "bio": "im a teacher",
+        "followers_count": 8,
+        "following_count": 0,
+        "posts_count": 2,
+        "followers": [
+            "test1",
+            "test1",
+            "test1",
+            "test1",
+            "test1",
+            "test1",
+            "test1",
+            "test1"
+        ],
+        "following": [],
+        "posts": [
+            "1",
+            "1"
+        ],
+        "saves": [
+            "1"
+        ],
+        "type": "private",
+        "blocked": [
+            "test2",
+            "test3"
+        ],
+        "request": []
     },
     "test1": {
         "name": "test1",
-        "email":"test1@gmail.com",
-        "password":"Test1111",
-        "bio":"Sigma Sigma Boy",
-        "followers_count": 1,
-        "following_count": 1,
+        "email": "test1@gmail.com",
+        "password": "Test1111",
+        "bio": "Sigma Sigma Boy",
+        "followers_count": 0,
+        "following_count": 8,
         "posts_count": 0,
-        "followers": ["iust.instagram"],
-        "following": ["iust.instagram"],
+        "followers": [],
+        "following": [
+            "iust.instagram",
+            "iust.instagram",
+            "iust.instagram",
+            "iust.instagram",
+            "iust.instagram",
+            "iust.instagram",
+            "iust.instagram",
+            "iust.instagram"
+        ],
         "posts": [],
-        "saves": ["1"],
+        "saves": [
+            "1"
+        ],
         "type": "public",
         "blocked": [],
-        "request" : []
+        "request": []
     },
-    "test2":{
+    "test2": {
         "name": "test2",
-        "email":"test2@gmail.com",
-        "password":"Test2222",
-        "bio":"why??",
+        "email": "test2@gmail.com",
+        "password": "Test2222",
+        "bio": "why??",
         "followers_count": 1,
         "following_count": 1,
         "posts_count": 0,
-        "followers": ["test1"],
-        "following": ["test1"],
+        "followers": [
+            "test1"
+        ],
+        "following": [
+            "test1"
+        ],
         "posts": [],
         "saves": [],
         "type": "private",
         "blocked": [],
-        "request" : []
+        "request": []
     },
     "test3": {
         "name": "test3",
-        "email":"test3@gmail.com",
-        "password":"Test3333",
-        "bio":"peace",
+        "email": "test3@gmail.com",
+        "password": "Test3333",
+        "bio": "peace",
         "followers_count": 0,
         "following_count": 0,
         "posts_count": 0,
@@ -60,7 +92,11 @@
         "posts": [],
         "saves": [],
         "type": "private",
-        "blocked": ["iust.instagram", "test1", "test2"],
-        "request" : []
+        "blocked": [
+            "iust.instagram",
+            "test1",
+            "test2"
+        ],
+        "request": []
     }
 }

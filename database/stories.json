@@ -1,8 +1,11 @@
 {
-    "1":{
-        "author":"iust.instagram",
-        "caption":"this is a test",
-        "like":[1,["test1"]],
-        "time":34567
+    "1": {
+        "author": "iust.instagram",
+        "caption": "Hey im testing the story thing",
+        "like": [
+            0,
+            []
+        ],
+        "time": 1745074901.6173809
     }
 }
