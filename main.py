@@ -892,10 +892,13 @@ def profile(username,user_spect):
                         users[username]["following"].remove(f"{user_spect}")
                         users[username]["following_count"] -= 1
                     elif follow_text == "Follow":
-                        users[user_spect]["followers"].append(f"{username}")
-                        users[user_spect]["followers_count"] += 1
-                        users[username]["following"].append(f"{user_spect}")
-                        users[username]["following_count"] += 1
+                        if users[user_spect]["type"] == "public":
+                            users[user_spect]["followers"].append(f"{username}")
+                            users[user_spect]["followers_count"] += 1
+                            users[username]["following"].append(f"{user_spect}")
+                            users[username]["following_count"] += 1
+                        else:
+                            users[user_spect]["request"].append(users[username])
                     data_saver()
                     m_info("Follow")
                     #Blocking & Unblocking
