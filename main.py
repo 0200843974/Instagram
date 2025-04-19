@@ -103,18 +103,18 @@ def sign():
                                         return home(username)
 
                                     else:
-                                        raise ValueError()
+                                        raise Exception()
 
-                                except ValueError:
+                                except Exception:
                                     m_error("Password is incorrect!")
                                     space()
                                     continue
                         else:
-                            raise ValueError()
+                            raise Exception()
 
                         space()
 
-                    except ValueError:
+                    except Exception:
                         m_error("Username does not exist!")
                         space()
                         continue
@@ -153,7 +153,7 @@ def sign():
                                             break
                                         
                                         elif re.match(EMAIL_PAT, command):
-                                            if command not in users[command]["email"]:
+                                            if command not in [user["email"] for user in users.values()]:
                                                 #SignUp enter password
                                                 email = command
                                                 try:
@@ -196,42 +196,42 @@ def sign():
                                                             return home(username)
                                                         
                                                         else:
-                                                            raise ValueError("Password syntax is invalid!")
+                                                            raise Exception("Password syntax is invalid!")
                                                         space()
 
-                                                except ValueError:
+                                                except Exception:
                                                     m_error("Password syntax is invalid!")
                                                     space()
                                                     continue
                                                 
                                             else:
-                                                raise ValueError()
+                                                raise Exception()
 
                                         else:
-                                            raise ValueError()
+                                            raise Exception()
                                         space()
 
-                                except ValueError:
+                                except Exception:
                                     m_error("The Email alreay exists or the syntax is invalid!")
                                     space()
                                     continue
 
                             else:
-                                raise ValueError("Username must be unique!")
+                                raise Exception("Username must be unique!")
                             
                         else:
-                            raise ValueError("username syntax is invalid!")
+                            raise Exception("username syntax is invalid!")
                         space()
 
-                    except ValueError:
+                    except Exception:
                         m_error("The Username alreay exists or the syntax is invalid!")
                         space()
                         continue
 
             else:
-                raise ValueError("The input is invalid try again!")
+                raise Exception("The input is invalid try again!")
 
-        except ValueError:
+        except Exception:
             m_error("The input is invalid try again!")
             space()
             continue
@@ -320,11 +320,7 @@ def home(username):
                                     break
                                 
                                 else :
-                                    raise ValueError()
-                
-                #removing the story if one day has passed           
-                            else:
-                                del stories[l]
+                                    raise Exception()
 
                     if cont != 0 :
                         m_success("you have seen all the stories press anything  to continue" )
@@ -354,24 +350,16 @@ def home(username):
                 #showing the post           
                             flag1 = True
                             post = posts[key]
-                            m_info(f"👤 {post["author"]}")
-                            m_info(f"{post["year"]}/{post["month"]}/{post["day"]}")
-                            m_info(f"\"{ post["caption"]}\" ✨ \n")
-                            m_info("------------------------------------\n")
-                            m_info(f"{post["comment"]} comments\t{post["like"]} ")
-                            m_info(f"likes {post["share"]} shares \t {post["save"]} saves \n ")
-                            m_info("------------------------------------\n")
-                            m_info("comments :")
+                            m_post(post)
                             
                             for comment in post["comments"] :
                                 print(f"{comment[0]} : {comment[1]}")
                                 
                 #navigating through menu    
-                            m_info("====================================\n")
                             t_select("Comment" , "Like" , "Save" , "Share" , "Next Post" , s=1)
                             press = user_input()
                             
-                #commenting            
+                #commenting
                             if press == "1" :
                                 
                                 cmnt = input("type '' to go exit  type your comment here :")
@@ -444,7 +432,7 @@ def home(username):
                                     chat(sent,f"{post["author"]}:{post["caption"]}")
                                     posts[key]["share"] += 1
                                     
-                                except ValueError:
+                                except Exception:
                                     m_error("invalid input press anything to go exit ")
                                     user_input()
                                     
@@ -461,7 +449,7 @@ def home(username):
                                 break
                                 
                             else:
-                                raise ValueError("The input is invalid try again")
+                                raise Exception("The input is invalid try again")
                     
                             if press == 6 :
                                 data_saver()
@@ -565,7 +553,7 @@ def home(username):
                                     m_info(f"{messag[0]}:{messag[1]}")
                                     
                 #managing invalid inputs        
-                            except ValueError:
+                            except Exception:
                                 m_error("wrong input")
                                 input("press anything to try again")
                                 clear_console()
@@ -581,7 +569,7 @@ def home(username):
                                         if username in chats[f"{i}"]["users"] :
                                             i += 1                                    
                                     m_success("message sent successfuly!")
-                                    chats[f"{i}"]["content"].append([username, text])
+                                    chats[f"{i}"]["content"].append([username, message])
                                     input("press anything to continue")
                                     clear_console()
                                 break
@@ -691,7 +679,7 @@ def home(username):
                         else :
                             try :
                                 req = users[username]["request"][int(choice)-1] 
-                            except ValueError:
+                            except Exception:
                                 m_error("invalid input, press anythig to continue")
                                 input()
                                 continue
@@ -719,7 +707,7 @@ def home(username):
                             
             #invalid input        
                             else:
-                                raise ValueError("The input is invalid try again")
+                                raise Exception("The input is invalid try again")
                             
                             space()
                             break
@@ -738,12 +726,14 @@ def home(username):
                 return profile(username,username)
             
             else:
-                raise ValueError("The input is invalid try again")
+                raise Exception("The input is invalid try again")
             space()
 
-        except ValueError:
+        except Exception:
             m_error("SomeThing went wrong!")
             space()
+            input()
+            clear_console()
             continue
 
     # while True:
@@ -772,10 +762,10 @@ def home(username):
     #         elif command == "8":
     #             return sign()
     #         else:
-    #             raise ValueError()
+    #             raise Exception()
     #         space()
 
-    #     except ValueError:
+    #     except Exception:
     #         m_error("Invalid input!")
     #         space()
     #         continue
@@ -798,9 +788,9 @@ def search(username):
             elif command in users.keys():
                 return profile(username,command)
             else:
-                raise ValueError()
+                raise Exception()
 
-        except ValueError:
+        except Exception:
             m_error("Username does not exist.")
             space()
             continue
@@ -871,7 +861,7 @@ def profile(username,user_spect):
                                 data_saver()
                             space()
                             m_info("View posts")
-                        except ValueError:
+                        except Exception:
                             m_error("invalid input.")
                             space()
                     m_info("View posts")
@@ -898,10 +888,10 @@ def profile(username,user_spect):
                     data_saver()
                     m_info("unfollow")
                 else:
-                    raise ValueError()
+                    raise Exception()
                 space()
 
-            except ValueError:
+            except Exception:
                 m_error("The input is invalid try again")
                 space()
                 continue
@@ -948,11 +938,11 @@ def profile(username,user_spect):
                                 users[username]["bio"] = new_bio
                                 m_success("Your bio Changed succesfully")
                             else:
-                                raise ValueError()
+                                raise Exception()
                             data_saver()
                             space()
                             m_info("Edit profile")
-                        except ValueError:
+                        except Exception:
                             m_error("The input is invalid!")
                             space()
                 elif command == "2":
@@ -968,7 +958,7 @@ def profile(username,user_spect):
                                 break
                             space()
                             m_info("View posts")
-                        except ValueError:
+                        except Exception:
                             m_error("invalid input!")
                             space()
                 elif command == "3":
@@ -1018,24 +1008,24 @@ def profile(username,user_spect):
                                                         if user in users[username]['blocked']:
                                                             users[username]['blocked'].remove(user)
                                                     data_saver()
-                                                except ValueError:
+                                                except Exception:
                                                     m_error("invaid input")
                                         else:
                                             m_error("Wrong input!")
-                                    except ValueError:
+                                    except Exception:
                                         m_error("invalid input!")
                             data_saver()
                             space()
                             m_info("Setting")
-                        except ValueError:
+                        except Exception:
                             m_error("invalid input")
                             space()
                     m_info("Setting")
                 else:
-                    raise ValueError()
+                    raise Exception()
                 space()
 
-            except ValueError:
+            except Exception:
                 m_error("invalid input")
                 space()
                 profile(username,user_spect)

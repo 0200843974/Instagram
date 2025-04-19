@@ -69,7 +69,6 @@ To store data in JSON, you must first make your changes in dictionaries "Users" 
         json.dump(Posts, json_file, indent=3)
 
 
-
 It is recommended that you make a backup of your code on your local system
 
 good luck...
