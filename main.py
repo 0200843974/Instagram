@@ -363,9 +363,10 @@ def home(username):
                 #commenting
                             if press == "1" :
                                 
-                                cmnt = input("type '' to go exit  type your comment here :")
+                                t_description("type '' to go exit  type your comment here :")
+                                cmnt = user_input()
                                 if cmnt != '':
-                                    posts[key]["comments"] = [username , cmnt]
+                                    posts[key]["comments"].append( [username , cmnt])
                                     posts[key]["comment"] += 1
                                     print(m_success("comment added successfully"))
                                     input("press anything to continue")

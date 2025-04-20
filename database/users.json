@@ -111,7 +111,9 @@
         "followers": [],
         "following": [],
         "posts": [],
-        "saves": [],
+        "saves": [
+            "1"
+        ],
         "type": "public",
         "blocked": []
     }
