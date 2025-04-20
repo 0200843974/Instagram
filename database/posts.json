@@ -5,7 +5,13 @@
         "month": 3,
         "day": 11,
         "caption": "Today was a wonderful day.",
-        "like": 1,
+        "like": [
+            2,
+            [
+                "test1",
+                "amin1234"
+            ]
+        ],
         "comment": 3,
         "save": 3,
         "share": 2,

@@ -67,8 +67,8 @@ def m_post(mydict):
     table.add_row("👤 Author", mydict["author"])
     table.add_row("📅 Date", f"{mydict['year']}/{mydict['month']:02}/{mydict['day']:02}")
     table.add_row("📝 Caption", mydict["caption"])
-    table.add_row("👍 Likes", str(mydict["like"]))
-    table.add_row("💬 Comments Count", str(mydict["comment"]))
+    table.add_row("👍 Likes", str(mydict["like"][0]))
+    table.add_row("💬 Comments", str(mydict["comment"]))
     table.add_row("📌 Saves", str(mydict["save"]))
     table.add_row("🔗 Shares", str(mydict["share"]))
 

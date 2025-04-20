@@ -42,8 +42,8 @@ def data_saver():
     with open("database/stories.json", "w", encoding="utf-8") as file:
         json.dump(stories, file, indent=4, ensure_ascii=False)
 
-    with open("database/users.json", "w", encoding="utf-8") as file:
-        json.dump(users, file, indent=4, ensure_ascii=False)
+    with open("database/chats.json", "w", encoding="utf-8") as file:
+        json.dump(chats, file, indent=4, ensure_ascii=False)
 
 #regex var
 USER_PAT = r"^[a-zA-Z0-9_.]{3,20}$"
@@ -353,8 +353,8 @@ def home(username):
                             post = posts[key]
                             m_post(post)
                             
-                            for comment in post["comments"] :
-                                print(f"{comment[0]} : {comment[1]}")
+                            # for comment in post["comments"] :
+                            #     print(f"{comment[0]} : {comment[1]}")
                                 
                 #navigating through menu    
                             t_select("Comment" , "Like" , "Save" , "Share" , "Next Post" , s=1)
@@ -446,16 +446,18 @@ def home(username):
                                 break
                             
                 #getting out of the post section
-                            elif press == "exit" :
+                            elif press == "exit":
+                                data_saver()
+                                clear_console()
                                 break
                                 
                             else:
                                 raise Exception("The input is invalid try again")
                     
-                            if press == 6 :
-                                data_saver()
-                                clear_console()
-                                break
+                            # if press == "exit" :
+                            #     data_saver()
+                            #     clear_console()
+                            #     break
                     
                     if counter != 0 :
                         m_success("you have seen all the stories press anything to continue")
@@ -463,7 +465,9 @@ def home(username):
                     elif counter == 0 :
                         m_error("no posts that you can see press anything to continue")
                         user_input()
-                     
+
+                    data_saver()
+                    
                 post(username)
             
             elif command == "3":
