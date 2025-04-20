@@ -818,7 +818,7 @@ def profile(username,user_spect):
     if username != user_spect:
         while True:
             #Determining if the guys is followed or not before and it does the same with block
-            if user_spect in users[username]["followers"]:
+            if user_spect in users[username]["following"]:
                 follow_text = "Unfollow"
             else:
                 follow_text = "Follow"
@@ -866,8 +866,27 @@ def profile(username,user_spect):
                                 elif command == '3':#Handles saving a post
                                     users[username]["saves"].append(command2)
                                     posts[command2]["save"] += 1
-                                elif command == '4':
-                                    pass #After the Home page
+                                elif command == '4':  # Share post
+                                    try:
+                                        if not users[username]["followers"]:  # No followers check
+                                            m_error("You have no followers to share with.")
+                                            continue
+
+                                        m_info(f"Share this post with your followers ({len(users[username]['followers'])}):")
+                                        t_select("Cancel", "Confirm Share")
+                                        share_choice = user_input()
+
+                                        if share_choice == '0':  # Cancel
+                                            continue
+                                        elif share_choice == '1':  # Confirm Share
+                                            # Simulate sharing by printing notifications (no JSON changes)
+                                            for follower in users[username]["followers"]:
+                                                m_info(f"📩 Sent post '{command2}' to {follower}'s inbox (simulated)")
+                                            m_success("Post shared with all followers!")
+                                        else:
+                                            raise Exception()
+                                    except Exception:
+                                        m_error("Invalid input. Share canceled.")
                                 data_saver()
                             space()
                             m_info("View posts")
@@ -883,10 +902,13 @@ def profile(username,user_spect):
                         users[username]["following"].remove(f"{user_spect}")
                         users[username]["following_count"] -= 1
                     elif follow_text == "Follow":
-                        users[user_spect]["followers"].append(f"{username}")
-                        users[user_spect]["followers_count"] += 1
-                        users[username]["following"].append(f"{user_spect}")
-                        users[username]["following_count"] += 1
+                        if users[user_spect]["type"] == "public":
+                            users[user_spect]["followers"].append(f"{username}")
+                            users[user_spect]["followers_count"] += 1
+                            users[username]["following"].append(f"{user_spect}")
+                            users[username]["following_count"] += 1
+                        else:
+                            users[user_spect]["request"].append(users[username])
                     data_saver()
                     m_info("Follow")
                     #Blocking & Unblocking
@@ -995,7 +1017,7 @@ def profile(username,user_spect):
                                     m_post(posts[saved_posts])
                             elif command2 == '3':
                                 for blocked_users in users[username]["blocked"]:
-                                    t_description(blocked_users , "Blocked User")
+                                    t_description(blocked_users)
                                 while True:
                                     try:
                                         t_select("Back" , "Change a Blocked users statement")
